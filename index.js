@@ -1,7 +1,6 @@
 const express = require("express");
 const sqlite = require('sqlite3');
-const db = new sqlite.Database('database.sqlite');
-const PORT = 3000;
+require('dotenv').config();
 const app = express();
 
 app.use(express.json());
@@ -11,4 +10,6 @@ app.use('/books', require('./routes/books'));
 app.use('/authors', require('./routes/authors'));
 app.use('/orders', require('./routes/orders'));
 
-app.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
+app.listen(process.env.PORT, () => console.log(`The server is running on port ${process.env.PORT}`));
+
+module.exports = app;
