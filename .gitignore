@@ -1,3 +1,4 @@
 node_modules
 config/config.json
 database.sqlite
+books_images/uploads
