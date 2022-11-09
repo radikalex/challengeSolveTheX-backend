@@ -1,6 +1,8 @@
-const { User, Sequelize } = require("../models/index");
+const { User, Token, Sequelize } = require("../models/index");
 const bcrypt = require("bcryptjs");
 const { Op } = Sequelize;
+const jwt = require("jsonwebtoken");
+const { jwt_secret } = require("../config/config.json")["development"];
 
 const UserController = {
     async createUser(req, res) {
@@ -78,6 +80,50 @@ const UserController = {
             res.status(500).send( {  msg: "An error occurred while getting an user by id", error } )
         }
     },
+
+    async login(req, res) {
+        try {
+          const user = await User.findOne({
+            where: {
+              email: req.body.email,
+            },
+          });
+          if (!user) {
+            return res
+              .status(200)
+              .send({ ok: false, message: "Username or password incorrect" });
+          }
+          const isMatch = bcrypt.compareSync(req.body.password, user.password);
+          if (!isMatch) {
+            return res
+              .status(200)
+              .send({ ok: false, message: "Username or password incorrect" });
+          }
+          let token = jwt.sign({ id: user.id }, jwt_secret);
+          Token.create({ token, UserId: user.id });
+          res.send({ ok: true, message: "Welcome " + user.name, user, token });
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ msg: "There was an error during login", error });
+        }
+      },
+    
+      async logout(req, res) {
+        try {
+          await Token.destroy({
+            where: {
+              [Op.and]: [
+                { UserId: req.user.id },
+                { token: req.headers.authorization },
+              ],
+            },
+          });
+          res.send({ message: "Disconnected successfully" });
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ message: "There was an error during logout" });
+        }
+      }
 };
 
 module.exports = UserController;
