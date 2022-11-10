@@ -16,7 +16,7 @@ module.exports = {
       },
       {
         name: "The Way of Kings",
-        img_book: "default/the-final-empire.jpg",
+        img_book: "default/the-way-of-kings.jpg",
         genre: "Fantastic literature",
         num_pages: 1281,
         price: 22.25,
