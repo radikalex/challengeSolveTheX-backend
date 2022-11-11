@@ -1,5 +1,5 @@
 # 💻 Challenge Solve The X | Backend
-This project consists of the development of an online store. The main objective was the development of the backend code, combining the knowledge acquired in node + express technologies, in addition to mysql / sequelize. In our case, we also make the frontend using the Bootstrap framework and developing the entire interface in Single-Page Application (SPA).
+This project has been carried out as a result of a challenge proposed by "Solve the X". The project consists of a frontend with Vue and a backend with Node and Express. This repository corresponds to the backend.
 
 ## 🦾 Used technology 
 - Sqlite3 with Sequelize and Express
