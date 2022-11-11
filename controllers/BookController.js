@@ -14,6 +14,22 @@ const BookController = {
         }
     },
 
+    async getBooksFilterName(req, res) {
+        try {
+            const books = await Book.findAll({
+                where: {
+                    name: {
+                        [Op.like]: `%${req.query.name}%`,
+                    }
+                }
+            });
+            res.status(200).send({ msg: `All books with ${req.query.name} in their name`, books });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send( {  msg: "An error occurred while getting the books filter by name", error } )
+        }
+    },
+
     async getBooks(req, res) {
         try {
             const books = await Book.findAll();

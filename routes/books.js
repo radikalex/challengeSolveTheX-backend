@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get("/", authentication, BookController.getBooks);
 router.get("/id/:id", authentication, BookController.getBookById);
+router.get("/getBooksFilterName", authentication, BookController.getBooksFilterName);
 
 router.post("/", 
     authentication, 

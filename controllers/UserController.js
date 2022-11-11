@@ -10,7 +10,7 @@ const UserController = {
             req.body.role = "user";
             const password = bcrypt.hashSync(req.body.password, 10);
             const user = await User.create({ ...req.body, password: password });
-            res.status(201).send({ msg: "User added successfully", user });
+            res.status(201).send({ ok: true, msg: "User added successfully", user });
         } catch (error) {
             console.error(error);
             res.status(500).send( {  msg: "An error occurred while adding new user", error } )
@@ -41,6 +41,23 @@ const UserController = {
         } catch (error) {
             console.error(error);
             res.status(500).send( {  msg: "An error occurred while getting an user by id", error } )
+        }
+    },
+
+    async getLoggedUser(req, res) {
+        try {
+            const user = await User.findOne({ 
+                where: {
+                    id: req.user.id 
+                }
+            });
+            if(user)
+                res.status(200).send({ msg: `User whith id ${req.params.id}`, user });
+            else
+                res.status(200).send({ msg: `No user with id ${req.params.id}`});
+        } catch (error) {
+            console.error(error);
+            res.status(500).send( {  msg: "An error occurred while getting the user logged", error } )
         }
     },
 
@@ -88,6 +105,7 @@ const UserController = {
               email: req.body.email,
             },
           });
+          console.log(user);
           if (!user) {
             return res
               .status(200)

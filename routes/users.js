@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get("/", authentication, UserController.getUsers);
 router.get("/id/:id", authentication, UserController.getUserById);
+router.get("/getLoggedUser", authentication, UserController.getLoggedUser);
 
 router.post("/", 
     [
