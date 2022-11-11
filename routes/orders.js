@@ -7,12 +7,12 @@ const router = express.Router();
 
 router.get("/", authentication, OrderController.getOrders);
 router.get("/id/:id", authentication, OrderController.getOrderById);
+router.get("/getOrdersOfLoggedUser", authentication, OrderController.getOrdersOfLoggedUser);
 
 router.post("/", 
     authentication, 
     [
         check("status", "The status cant be empty.").notEmpty(),
-        check("UserId", "The UserId cant be empty.").notEmpty(),
         check("books", "The books cant be empty.").notEmpty(),
         validateBodyParams
     ],

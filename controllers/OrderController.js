@@ -4,7 +4,7 @@ const { Op } = Sequelize;
 const OrderController = {
     async createOrder(req, res) {
         try {
-            const order = await Order.create( { status: req.body.status, UserId: req.body.UserId } );
+            const order = await Order.create( { status: req.body.status, UserId: req.user.id} );
             for (const book of req.body.books) {
                 Order_book.create({
                     OrderId: order.id,
@@ -39,6 +39,24 @@ const OrderController = {
             });
             if(order)
                 res.status(200).send({ msg: `Order whith id ${req.params.id}`, order });
+            else
+                res.status(200).send({ msg: `No order with id ${req.params.id}`});
+        } catch (error) {
+            console.error(error);
+            res.status(500).send( {  msg: "An error occurred while getting an order by id", error } )
+        }
+    },
+
+    async getOrdersOfLoggedUser (req, res) {
+        try {
+            const orders = await Order.findAll({ 
+                include: [Book],
+                where: {
+                    UserId: req.user.id 
+                }
+            });
+            if(orders)
+                res.status(200).send({ msg: `Order whith id ${req.params.id}`, orders });
             else
                 res.status(200).send({ msg: `No order with id ${req.params.id}`});
         } catch (error) {

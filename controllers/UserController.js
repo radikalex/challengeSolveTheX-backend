@@ -52,9 +52,9 @@ const UserController = {
                 }
             });
             if(user)
-                res.status(200).send({ msg: `User whith id ${req.params.id}`, user });
+                res.status(200).send({ msg: `User whith id ${req.user.id }`, user });
             else
-                res.status(200).send({ msg: `No user with id ${req.params.id}`});
+                res.status(200).send({ msg: `No user with id ${req.user.id }`});
         } catch (error) {
             console.error(error);
             res.status(500).send( {  msg: "An error occurred while getting the user logged", error } )
@@ -105,7 +105,6 @@ const UserController = {
               email: req.body.email,
             },
           });
-          console.log(user);
           if (!user) {
             return res
               .status(200)

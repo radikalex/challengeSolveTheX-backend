@@ -2,5 +2,5 @@ node_modules
 config/config.json
 database.sqlite
 databaseTest.sqlite
-books_images/uploads
+books_images/uploads/
 .env

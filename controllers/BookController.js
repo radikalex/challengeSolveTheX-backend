@@ -1,4 +1,4 @@
-const { Book, Sequelize } = require("../models/index");
+const { Book, Author, Sequelize } = require("../models/index");
 const { Op } = Sequelize;
 const { unlink } = require("fs/promises");
 const path = require("path");
@@ -17,6 +17,7 @@ const BookController = {
     async getBooksFilterName(req, res) {
         try {
             const books = await Book.findAll({
+                include: [Author],
                 where: {
                     name: {
                         [Op.like]: `%${req.query.name}%`,
@@ -32,7 +33,7 @@ const BookController = {
 
     async getBooks(req, res) {
         try {
-            const books = await Book.findAll();
+            const books = await Book.findAll({ include: [Author]});
             res.status(200).send({ msg: "All books", books });
         } catch (error) {
             console.error(error);
@@ -43,6 +44,7 @@ const BookController = {
     async getBookById(req, res) {
         try {
             const book = await Book.findOne({ 
+                include: [Author],
                 where: {
                     id: req.params.id 
                 }
