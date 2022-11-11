@@ -1,17 +1,21 @@
 {
   "development": {
-    "username": "your username",
-    "password": "your password",
+    "username": null,
+    "password": null,
     "database": "your db name",
     "host": "127.0.0.1",
-    "dialect": "sqlite"
+    "dialect": "sqlite",
+    "storage": "database.sqlite",
+    "jwt_secret": "secret_jwt"
   },
   "test": {
-    "username": "root",
+    "username": null,
     "password": null,
-    "database": "database_test",
+    "database": "your db test database",
     "host": "127.0.0.1",
-    "dialect": "sqlite"
+    "dialect": "sqlite",
+    "storage": "databaseTest.sqlite",
+    "jwt_secret": "secret_jwt"
   },
   "production": {
     "username": "root",
