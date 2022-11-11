@@ -1,5 +1,5 @@
 # 💻 Challenge Solve The X | Backend
-This project has been carried out as a result of a challenge proposed by "Solve the X". The project consists of a frontend with Vue and a backend with Node and Express. This repository corresponds to the backend.
+This project has been carried out as a result of a challenge proposed by "Solve the X". The project consists of a frontend with Vue and a backend with Node and Express. This repository corresponds to the backend. The frontend is in [this repository](https://github.com/radikalex/challengeSolveTheX-frontend).
 
 ## 🦾 Used technology 
 - Sqlite3 with Sequelize and Express
